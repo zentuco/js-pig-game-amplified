@@ -9,6 +9,8 @@ GAME RULES:
 
 */
 
+alert('---------------- Welcome to Zentuco\'s Pig Game ----------------\n\nRoll the dice to get points. Pressing hold you save the sum of the points you got on your turn but... Get a 1 and you loose your current score!\n\nFirst player to get 100 points WINS.\n\nOh! Hi Mark.');
+
 var scores, roundScore, activePlayer, gamePlaying;
 init();
 
@@ -78,7 +80,6 @@ function init() {
   activePlayer = 0;
   roundScore = 0;
   gamePlaying = true;
-  alert('---------------- Welcome to Zentuco\'s Pig Game ----------------\n\nThe Rules are simple ~~~~> Roll the dice to get points. Pressing hold you save the sum of the points you got on your turn but... Get a 1 and you loose your current score!\nFirst player to get 100 points WINS\n\nOh! Hi Mark.');
 
   document.querySelector('.dice').style.display = 'none';
 
