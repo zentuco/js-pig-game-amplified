@@ -9,29 +9,35 @@ GAME RULES:
 
 */
 
-alert('---------------- Welcome to Zentuco\'s Pig Game ----------------\n\nRoll the dice to get points. Pressing hold you save the sum of the points you got on your turn but... Get a 1 and you loose your current score!\n\nFirst player to get 100 points WINS.\n\nOh! Hi Mark.');
+// alert('---------------- Welcome to Zentuco\'s Pig Game ----------------\n\nRoll the dice to get points. Pressing hold you save the sum of the points you got on your turn but... Get a 1 and you loose your current score!\n\nFirst player to get 100 points WINS.\n\nOh! Hi Mark.');
 
 var scores, roundScore, activePlayer, gamePlaying;
 init();
 
+var lastDice;
 
 document.querySelector('.btn-roll').addEventListener('click', function() {
   if(gamePlaying) {
   // 1. Random number
     var dice = Math.floor(Math.random() * 6) + 1;
-
     // 2. Display the result
     var diceDOM = document.querySelector('.dice');
     diceDOM.style.display = 'block';
     diceDOM.src = 'dice-' + dice + '.png';
 
-
-    // 3. Update the round score if the rolled number was NOT a 1
-    if (dice !== 1) {
+    // 3. Update the round score if the rolled number was NOT a 1 && redoing it so if 2 6s in a row loses score
+    if (dice === 6 && lastDice === 6) {
+      scores[activePlayer] = 0;
+      document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+      nextPlayer();
+      lastDice = 0;
+    } else if (dice !== 1) {
       roundScore += dice;
       document.querySelector('#current-' + activePlayer).textContent = roundScore;
+      lastDice = dice;
     } else {
       nextPlayer();
+      lastDice = 0;
     }
   }
 });
