@@ -9,7 +9,7 @@ GAME RULES:
 
 */
 
-// alert('---------------- Welcome to Zentuco\'s Pig Game ----------------\n\nRoll the dice to get points. Pressing hold you save the sum of the points you got on your turn but... Get a 1 and you loose your current score!\n\nFirst player to get 100 points WINS.\n\nOh! Hi Mark.');
+alert('---------------- Welcome to Zentuco\'s Pig Game ----------------\n\nRoll the dices to get points. Pressing hold you save the sum of the points you got on your turn but... Get a 1 in either dice and you loose your current score!\nYou can set the final score you want, otherwise the first player to get 100 points WINS.\n\nOh! Hi Mark.');
 
 var scores, roundScore, activePlayer, gamePlaying;
 init();
@@ -19,13 +19,26 @@ var lastDice;
 document.querySelector('.btn-roll').addEventListener('click', function() {
   if(gamePlaying) {
   // 1. Random number
-    var dice = Math.floor(Math.random() * 6) + 1;
+    var dice1 = Math.floor(Math.random() * 6) + 1;
+    var dice2 = Math.floor(Math.random() * 6) + 1;
+
     // 2. Display the result
-    var diceDOM = document.querySelector('.dice');
-    diceDOM.style.display = 'block';
-    diceDOM.src = 'dice-' + dice + '.png';
+    document.getElementById('dice-1').style.display = 'block';
+    document.getElementById('dice-2').style.display = 'block';
+
+    document.getElementById('dice-1').src = 'dice-' + dice1 + '.png';
+    document.getElementById('dice-2').src = 'dice-' + dice2 + '.png'
+
+
+    if (dice1 !== 1 && dice2 !== 1) {
+      roundScore += dice1 + dice2;
+      document.querySelector('#current-' + activePlayer).textContent = roundScore;
+    } else {
+      nextPlayer();
+    }
 
     // 3. Update the round score if the rolled number was NOT a 1 && redoing it so if 2 6s in a row loses score
+    /*
     if (dice === 6 && lastDice === 6) {
       scores[activePlayer] = 0;
       document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
@@ -38,7 +51,7 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
     } else {
       nextPlayer();
       lastDice = 0;
-    }
+    } */
   }
 });
 
@@ -65,7 +78,8 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
 
     if (scores[activePlayer] >= winningScore) {
       document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
-      document.querySelector('.dice').style.display = 'none';
+      document.getElementById('dice-1').style.display = 'none';
+      document.getElementById('dice-2').style.display = 'none';
       document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
       document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
       gamePlaying = false;
@@ -84,7 +98,8 @@ function nextPlayer() {
   document.querySelector('.player-0-panel').classList.toggle('active');
   document.querySelector('.player-1-panel').classList.toggle('active');
 
-  document.querySelector('.dice').style.display = 'none';
+  document.getElementById('dice-1').style.display = 'none';
+  document.getElementById('dice-2').style.display = 'none';
 }
 
 
@@ -97,7 +112,8 @@ function init() {
   roundScore = 0;
   gamePlaying = true;
 
-  document.querySelector('.dice').style.display = 'none';
+  document.getElementById('dice-1').style.display = 'none';
+  document.getElementById('dice-2').style.display = 'none';
 
   document.getElementById('score-0').textContent = '0';
   document.getElementById('score-1').textContent = '0';
