@@ -9,12 +9,12 @@ GAME RULES:
 
 */
 
-alert('---------------- Welcome to Zentuco\'s Pig Game ----------------\n\nRoll the dices to get points. Pressing hold you save the sum of the points you got on your turn but... Get a 1 in either dice and you loose your current score!\nYou can set the final score you want, otherwise the first player to get 100 points WINS.\n\nOh! Hi Mark.');
+alert('Roll the dices to get points. You can set the final score you want, otherwise the first player to get 100 points WINS. Pressing hold you save the sum of the points you got on your turn but...\n\nGet a 1 in either dice and you loose your ongoing score!\nGet double 6es & loose all your score!\n\nOh! Hi Mark.');
 
 var scores, roundScore, activePlayer, gamePlaying;
 init();
 
-var lastDice;
+// var lastDice;
 
 document.querySelector('.btn-roll').addEventListener('click', function() {
   if(gamePlaying) {
@@ -30,7 +30,11 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
     document.getElementById('dice-2').src = 'dice-' + dice2 + '.png'
 
 
-    if (dice1 !== 1 && dice2 !== 1) {
+    if (dice1 === 6 && dice2 === 6) {
+      scores[activePlayer] = 0;
+      document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+      nextPlayer();
+    } else if (dice1 !== 1 && dice2 !== 1) {
       roundScore += dice1 + dice2;
       document.querySelector('#current-' + activePlayer).textContent = roundScore;
     } else {
