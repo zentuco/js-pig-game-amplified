@@ -9,7 +9,7 @@ GAME RULES:
 
 */
 
-alert('Roll the dices to get points. You can set the final score you want, otherwise the first player to get 100 points WINS. Pressing hold you save the sum of the points you got on your turn but...\n\nGet a 1 in either dice and you loose your ongoing score!\nGet double 6es & loose all your score!\n\nOh! Hi Mark.');
+alert('Roll the dices to get points. You can set the final score you want, otherwise the first player to get 100 points WINS.\nPressing hold you save the sum of the points you got on your turn but...\n\nGet a 1 in either dice and you loose your ongoing score!\nGet double 6es & loose all your score!\n\nOh! Hi Mark.');
 
 var scores, roundScore, activePlayer, gamePlaying;
 init();
